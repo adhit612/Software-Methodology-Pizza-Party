@@ -1,5 +1,6 @@
-package com.example.pizzaparty;
+package com.example.pizzaparty.Controllers;
 
+import com.example.pizzaparty.MainApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,16 +11,18 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class SpecialtiesController {
+public class CurrentOrderController {
     private MainMenuController mainMenuController;
+
     public void backToMainAction(ActionEvent actionEvent) {
         Stage mainStage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         AnchorPane root;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("main-menu.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("main-menu.fxml"));
             root = (AnchorPane) loader.load();
-            Scene scene = new Scene(root, 500, 400);
+            Scene scene = new Scene(root, 600, 400);
             mainStage.setScene(scene);
+            mainStage.setTitle("Main Menu");
             mainStage.show();
         }catch (IOException e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -30,7 +33,7 @@ public class SpecialtiesController {
         }
     }
 
-    public void setMainController (MainMenuController controller){
+    public void setMainController (MainMenuController controller) {
         mainMenuController = controller;
     }
 }

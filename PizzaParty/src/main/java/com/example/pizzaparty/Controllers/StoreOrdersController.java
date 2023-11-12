@@ -1,33 +1,29 @@
-package com.example.pizzaparty;
+package com.example.pizzaparty.Controllers;
 
+import com.example.pizzaparty.Controllers.MainMenuController;
+import com.example.pizzaparty.MainApplication;
 import javafx.event.ActionEvent;
-
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainMenuController {
-
-    @FXML
-    public void specialtyButtonAction(ActionEvent actionEvent) {
+public class StoreOrdersController {
+    private MainMenuController mainMenuController;
+    public void backToMainAction(ActionEvent actionEvent) {
         Stage mainStage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         AnchorPane root;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("specialties.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("main-menu.fxml"));
             root = (AnchorPane) loader.load();
-            Scene scene = new Scene(root, 500, 400);
+            Scene scene = new Scene(root, 600, 400);
             mainStage.setScene(scene);
+            mainStage.setTitle("Main Menu");
             mainStage.show();
-            SpecialtiesController specialtiesController = loader.getController();
-            specialtiesController.setMainController(this);
         }catch (IOException e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
@@ -35,5 +31,9 @@ public class MainMenuController {
             alert.setContentText("Couldn't load View1.fxml.");
             alert.showAndWait();
         }
+    }
+
+    public void setMainController (MainMenuController controller) {
+        mainMenuController = controller;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.pizzaparty;
 
+import javafx.scene.control.ListView;
+
 import java.util.*;
 
 public abstract class Pizza {
@@ -14,6 +16,8 @@ public abstract class Pizza {
     public abstract double getSizePrice();
 
     public abstract String getToppingsAsString();
+
+    public abstract ArrayList<Topping> getToppings();
 
     public void setToppings(ArrayList <Topping> toppings){
         this.toppings = toppings;

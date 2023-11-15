@@ -48,6 +48,11 @@ public class BuildYourOwn extends Pizza {
     }
 
     @Override
+    public ArrayList<Topping> getToppings(){
+        return this.toppings;
+    }
+
+    @Override
     public String toString(){
         if(this.extraCheese == false || this.extraSauce == false){
             return "[Deluxe]" + "[" + getSizeAsString() + "]" + "[" + getSauceAsString() + "]: " + getToppingsAsString() + extraCheeseString().replace(",","") + extraSauceString().replace(",","") + ": " + "$" + price();

@@ -42,6 +42,11 @@ public class Seafood extends Pizza {
     }
 
     @Override
+    public ArrayList<Topping> getToppings(){
+        return this.toppings;
+    }
+
+    @Override
     public String toString(){
         return "[Deluxe]" + "[" + getSizeAsString() + "]" + "[" + getSauceAsString() + "]: " + getToppingsAsString() + extraCheeseString() + extraSauceString() + ": " + "$" + price();
     }

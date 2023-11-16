@@ -1,6 +1,8 @@
 package com.example.pizzaparty.Controllers;
 
 import com.example.pizzaparty.MainApplication;
+import com.example.pizzaparty.Order;
+import com.example.pizzaparty.Pizza;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
@@ -12,8 +14,26 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class MainMenuController {
+    static ArrayList<Pizza> currentPizzaList;
+
+    static ArrayList<Order> orderList;
+
+    public void initialize(){
+        currentPizzaList = new ArrayList<>();
+        System.out.println(currentPizzaList.size());
+    }
+
+    public static ArrayList<Pizza> getCurrentPizzaList(){
+        return currentPizzaList;
+    }
+
+    public static void setCurrentPizzaList(ArrayList <Pizza> newList){
+        currentPizzaList = newList;
+    }
 
     @FXML
     public void specialtyButtonAction(ActionEvent actionEvent) {

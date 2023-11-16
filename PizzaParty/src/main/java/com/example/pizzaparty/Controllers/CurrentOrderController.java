@@ -2,10 +2,12 @@ package com.example.pizzaparty.Controllers;
 
 import com.example.pizzaparty.MainApplication;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -13,6 +15,13 @@ import java.io.IOException;
 
 public class CurrentOrderController {
     private MainMenuController mainMenuController;
+
+    @FXML
+    private TextField orderNumberTextField;
+
+    public void initialize(){
+
+    }
 
     public void backToMainAction(ActionEvent actionEvent) {
         Stage mainStage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();

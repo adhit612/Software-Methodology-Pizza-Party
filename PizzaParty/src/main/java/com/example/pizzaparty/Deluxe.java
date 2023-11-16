@@ -9,6 +9,7 @@ public class Deluxe extends Pizza {
         this.extraSauce = false;
         this.extraCheese = false;
         this.toppings = new ArrayList<>(Arrays.asList(Topping.SAUSAGE,Topping.PEPPERONI,Topping.GREENPEPPER,Topping.ONION,Topping.MUSHROOM));
+        this.sauce = Sauce.TOMATO;
     }
 
     @Override

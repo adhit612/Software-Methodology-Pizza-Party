@@ -7,6 +7,7 @@ public class Meatzza extends Pizza {
 
     public Meatzza() {
         this.toppings = new ArrayList<>(Arrays.asList(Topping.SAUSAGE,Topping.PEPPERONI,Topping.BEEF,Topping.HAM));
+        this.sauce = Sauce.TOMATO;
     }
 
     @Override

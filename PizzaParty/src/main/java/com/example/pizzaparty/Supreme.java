@@ -7,6 +7,7 @@ public class Supreme extends Pizza {
 
     public Supreme() {
         this.toppings = new ArrayList<>(Arrays.asList(Topping.SAUSAGE,Topping.PEPPERONI,Topping.HAM,Topping.GREENPEPPER,Topping.ONION,Topping.BLACKOLIVE,Topping.MUSHROOM));
+        this.sauce = Sauce.TOMATO;
     }
 
     @Override
@@ -18,7 +19,7 @@ public class Supreme extends Pizza {
             return 17.99;
         }
         else{
-            return 18.99;
+            return 19.99;
         }
     }
 

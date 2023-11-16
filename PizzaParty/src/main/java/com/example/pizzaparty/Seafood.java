@@ -7,6 +7,7 @@ public class Seafood extends Pizza {
 
     public Seafood() {
         this.toppings = new ArrayList<>(Arrays.asList(Topping.SHRIMP,Topping.SQUID,Topping.CRABMEATS));
+        this.sauce = Sauce.ALFREDO;
     }
 
     @Override

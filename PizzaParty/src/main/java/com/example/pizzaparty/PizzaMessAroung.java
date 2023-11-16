@@ -30,6 +30,7 @@ public class PizzaMessAroung {
         storeOrders.add(order);
         storeOrders.add(order1);
 
-        System.out.println(storeOrders.toString());
+        //System.out.println(storeOrders.toString());
+        System.out.println(order1.toString());
     }
 }

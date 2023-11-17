@@ -6,6 +6,8 @@ public class StoreOrders {
     private int currOrderNumber;
     private static int nextOrderNumber;
 
+    public StoreOrders(){}
+
     public StoreOrders(ArrayList <Order> orders){
         this.currOrderNumber = 1;
         this.orders = orders;
@@ -39,6 +41,9 @@ public class StoreOrders {
         this.currOrderNumber ++;
     }
 
+    public ArrayList <Order> getOrders(){
+        return this.orders;
+    }
 
     @Override
     public String toString(){
@@ -54,5 +59,9 @@ public class StoreOrders {
             }
         }
         return res;
+    }
+
+    public void setOrders(ArrayList <Order> newOrders){
+        this.orders = newOrders;
     }
 }

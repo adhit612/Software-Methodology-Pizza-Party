@@ -38,4 +38,12 @@ public class Order {
         }
         return res;
     }
+
+    public ArrayList <Pizza> getPizzaList(){
+        return this.pizzas;
+    }
+
+    public void setPizzasList(ArrayList <Pizza> newList){
+        this.pizzas = newList;
+    }
 }

@@ -2,18 +2,57 @@ package com.example.pizzaparty.Controllers;
 
 import com.example.pizzaparty.Controllers.MainMenuController;
 import com.example.pizzaparty.MainApplication;
+import com.example.pizzaparty.Order;
+import com.example.pizzaparty.Pizza;
+import com.example.pizzaparty.StoreOrders;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class StoreOrdersController {
     private MainMenuController mainMenuController;
+
+    private ObservableList<Integer> orderNumberList;
+
+    @FXML
+    private TextField orderTotalTextField;
+
+    @FXML
+    private ComboBox orderNumbersComboBox;
+
+    @FXML
+    private ListView orderInformationListView;
+
+    DataSingleton dataSingleton = DataSingleton.getInstance();
+
+    public void initialize(){
+        orderTotalTextField.setEditable(false);
+        StoreOrders storeOrders = dataSingleton.getStoreOrders();
+        ArrayList <Integer> orderNumbersToBeAdded = new ArrayList<>();
+        if(storeOrders != null) {
+            ArrayList<Order> orderList = storeOrders.getOrders();
+            for(int i = 0; i < orderList.size(); i ++){
+                orderNumbersToBeAdded.add(orderList.get(i).getOrderNumber());
+            }
+            orderNumberList = FXCollections.observableArrayList(orderNumbersToBeAdded);
+            orderNumbersComboBox.setItems(orderNumberList);
+        }
+    }
+
     public void backToMainAction(ActionEvent actionEvent) {
         Stage mainStage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         AnchorPane root;
@@ -35,5 +74,17 @@ public class StoreOrdersController {
 
     public void setMainController (MainMenuController controller) {
         mainMenuController = controller;
+    }
+
+    public void orderNumbersComboBoxAction(ActionEvent actionEvent) {
+        int selectedOrderNumber = (int)orderNumbersComboBox.getSelectionModel().getSelectedItem();
+        StoreOrders storeOrders = dataSingleton.getStoreOrders();
+        ArrayList <Order> orders = storeOrders.getOrders();
+        for(int i = 0; i < orders.size(); i ++){
+            if(orders.get(i).getOrderNumber() == selectedOrderNumber){
+                ObservableList<Pizza> orderPizzaObservableList = FXCollections.observableList(orders.get(i).getPizzaList());
+                orderInformationListView.setItems(orderPizzaObservableList);
+            }
+        }
     }
 }

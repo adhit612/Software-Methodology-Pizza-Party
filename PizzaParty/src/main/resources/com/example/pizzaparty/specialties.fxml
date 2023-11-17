@@ -20,8 +20,8 @@
       <RadioButton fx:id="largeRadioButton" layoutX="155.0" layoutY="134.0" mnemonicParsing="false" onAction="#largeButtonAction" text="Large" toggleGroup="$SizesGroup" />
       <Label layoutX="20.0" layoutY="158.0" text="Sauce (Cannot Change)" />
       <Label layoutX="20.0" layoutY="206.0" text="Extras" />
-      <CheckBox fx:id="extraCheeseCheckBox" layoutX="15.0" layoutY="230.0" mnemonicParsing="false" text="Extra Cheese" onAction="#extraCheeseBoxAction"/>
-      <CheckBox fx:id="extraSauceCheckBox" layoutX="119.0" layoutY="230.0" mnemonicParsing="false" text="Extra Sauce" onAction="#extraSauceBoxAction"/>
+      <CheckBox fx:id="extraCheeseCheckBox" layoutX="15.0" layoutY="230.0" mnemonicParsing="false" onAction="#extraCheeseBoxAction" text="Extra Cheese" />
+      <CheckBox fx:id="extraSauceCheckBox" layoutX="119.0" layoutY="230.0" mnemonicParsing="false" onAction="#extraSauceBoxAction" text="Extra Sauce" />
       <ListView fx:id="toppingsListView" layoutX="358.0" layoutY="182.0" prefHeight="200.0" prefWidth="200.0" />
       <Button fx:id="addToOrderButton" layoutX="257.0" layoutY="360.0" mnemonicParsing="false" onAction="#addToOrderButtonAction" text="Add to Order" />
       <TextField fx:id="pizzaPriceTextField" layoutX="63.0" layoutY="360.0" />

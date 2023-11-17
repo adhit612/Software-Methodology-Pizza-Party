@@ -49,7 +49,11 @@ public class SpecialtiesController {
 
     Pizza pizzaToBeAdded;
 
+    DataSingleton dataSingleton = DataSingleton.getInstance();
+
     public void initialize(){
+        pizzaPriceTextField.setEditable(false);
+        setSauceTextField.setEditable(false);
         specialtiesList = FXCollections.observableArrayList("Deluxe","Supreme","Meatzza","Seafood","Pepperoni");
         specialtyPizzasComboBox.setItems(specialtiesList);
     }
@@ -280,23 +284,22 @@ public class SpecialtiesController {
         }
         else{
             if(pizzaToBeAdded != null){
-                ArrayList <Pizza> updatedPizzaList = MainMenuController.getCurrentPizzaList();
-                updatedPizzaList.add(pizzaToBeAdded);
-                MainMenuController.setCurrentPizzaList(updatedPizzaList);
+                Order order = dataSingleton.getOrder();
+                if(order == null){
+                    ArrayList <Pizza> pizzaList = new ArrayList<>();
+                    pizzaList.add(pizzaToBeAdded);
+                    Order newOrder = new Order(pizzaList);
+                    dataSingleton.setOrder(newOrder);
+                }
+                else{
+                    order.add(pizzaToBeAdded);
+                    dataSingleton.setOrder(order);
+                }
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Pizza Added Message");
                 alert.setHeaderText("Pizza has been added!");
                 alert.setContentText("It will be worth it...");
                 alert.showAndWait();
-                //clear everything
-//                specialtyPizzasComboBox.getSelectionModel().clearSelection();
-//                selectedSizeButton.setSelected(false);
-//                extraCheeseCheckBox.setSelected(false);
-//                extraSauceCheckBox.setSelected(false);
-//                setSauceTextField.setText("");
-//                pizzaPriceTextField.setText("");
-//                toppingsListView.getItems().removeAll();
-//                specialtyPizzaimageView.setImage(null);
             }
         }
     }

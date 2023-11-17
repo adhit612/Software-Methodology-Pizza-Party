@@ -3,6 +3,7 @@ package com.example.pizzaparty.Controllers;
 import com.example.pizzaparty.MainApplication;
 import com.example.pizzaparty.Order;
 import com.example.pizzaparty.Pizza;
+import com.example.pizzaparty.StoreOrders;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
@@ -20,19 +21,19 @@ import java.util.ArrayList;
 public class MainMenuController {
     static ArrayList<Pizza> currentPizzaList;
 
-    static ArrayList<Order> orderList;
+    static Order currentOrder = new Order(currentPizzaList);
+
+    static StoreOrders storeOrders = new StoreOrders();
 
     public void initialize(){
-        currentPizzaList = new ArrayList<>();
-        System.out.println(currentPizzaList.size());
     }
 
-    public static ArrayList<Pizza> getCurrentPizzaList(){
-        return currentPizzaList;
+    public static Order getCurrentOrder(){
+        return currentOrder;
     }
 
-    public static void setCurrentPizzaList(ArrayList <Pizza> newList){
-        currentPizzaList = newList;
+    public static void setCurrentOrder(Order newOrder){
+        currentOrder = newOrder;
     }
 
     @FXML

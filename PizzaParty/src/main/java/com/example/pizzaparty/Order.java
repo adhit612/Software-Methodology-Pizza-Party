@@ -1,9 +1,12 @@
 package com.example.pizzaparty;
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class Order {
     private ArrayList <Pizza> pizzas;
     private int orderNumber;
+    public static final double SALES_TAX = 0.06625;
+    private static final DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
     public Order(ArrayList <Pizza> pizzas){
         this.pizzas = pizzas;
@@ -37,6 +40,22 @@ public class Order {
             }
         }
         return res;
+    }
+
+    public double getTotalPriceWithoutTax(){
+        double total = 0.0;
+        for(int i = 0; i < this.pizzas.size(); i ++){
+            total += this.pizzas.get(i).price();
+        }
+        return Double.parseDouble(decimalFormat.format(total));
+    }
+
+    public double getTotalPriceWithSalesTax(){
+        return Double.parseDouble(decimalFormat.format(getTotalPriceWithoutTax() + (getTotalPriceWithoutTax() * SALES_TAX)));
+    }
+
+    public double getSalesTaxOfTotal(){
+        return Double.parseDouble(decimalFormat.format(getTotalPriceWithoutTax() * SALES_TAX));
     }
 
     public ArrayList <Pizza> getPizzaList(){

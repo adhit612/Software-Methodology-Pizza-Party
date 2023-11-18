@@ -20,6 +20,8 @@ import java.util.ArrayList;
 public class CurrentOrderController {
     private MainMenuController mainMenuController;
 
+    private boolean orderPlacedBoolean;
+
     @FXML
     private TextField orderNumberTextField;
 
@@ -54,6 +56,9 @@ public class CurrentOrderController {
                 orderNumberTextField.setText(String.valueOf(currOrder.getOrderNumber()));
                 ObservableList<Pizza> orderPizzaObservableList = FXCollections.observableList(currOrder.getPizzaList());
                 orderContentsListView.setItems(orderPizzaObservableList);
+                subtotalTextField.setText(String.valueOf(currOrder.getTotalPriceWithoutTax()));
+                salesTaxTextField.setText(String.valueOf(currOrder.getSalesTaxOfTotal()));
+                orderTotalTextField.setText(String.valueOf(currOrder.getTotalPriceWithSalesTax()));
             }
             else{
                 storeOrders.add(currOrder);
@@ -61,11 +66,17 @@ public class CurrentOrderController {
                 orderNumberTextField.setText(String.valueOf(currOrder.getOrderNumber()));
                 ObservableList<Pizza> orderPizzaObservableList = FXCollections.observableList(currOrder.getPizzaList());
                 orderContentsListView.setItems(orderPizzaObservableList);
+                subtotalTextField.setText(String.valueOf(currOrder.getTotalPriceWithoutTax()));
+                salesTaxTextField.setText(String.valueOf(currOrder.getSalesTaxOfTotal()));
+                orderTotalTextField.setText(String.valueOf(currOrder.getTotalPriceWithSalesTax()));
             }
         }
     }
 
     public void backToMainAction(ActionEvent actionEvent) {
+        if(!orderPlacedBoolean){
+            dataSingleton.setStoreOrders(null);
+        }
         Stage mainStage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         AnchorPane root;
         try {
@@ -90,6 +101,27 @@ public class CurrentOrderController {
 
     public void placeOrderButtonAction(ActionEvent actionEvent) {
         Order currOrder = dataSingleton.getOrder();
+
+        if(currOrder == null){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Order Already Placed Message");
+            alert.setHeaderText("Order has already been placed!");
+            alert.setContentText("Fun is on the way...");
+            alert.showAndWait();
+            return;
+        }
+
+        ArrayList <Pizza> orderPizzaList = currOrder.getPizzaList();
+
+        if(orderPizzaList.size() == 0){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Empty Order Message");
+            alert.setHeaderText("Your order is empty!");
+            alert.setContentText("Add a pizza to enjoy...");
+            alert.showAndWait();
+            return;
+        }
+        orderPlacedBoolean = true;
         currOrder = null;
         dataSingleton.setOrder(currOrder);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -97,5 +129,39 @@ public class CurrentOrderController {
         alert.setHeaderText("Order has been placed!");
         alert.setContentText("Enjoy the food...");
         alert.showAndWait();
+//        orderContentsListView.getItems().clear();
+//        orderNumberTextField.clear();
+    }
+
+    public void removeSelectedPizzaAction(ActionEvent actionEvent) {
+        Pizza selectedPizza = (Pizza)orderContentsListView.getSelectionModel().getSelectedItem();
+        if(selectedPizza == null){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Please Select Item Message");
+            alert.setHeaderText("No Item Selected");
+            alert.setContentText("If you really wanna remove you gotta select...");
+            alert.showAndWait();
+        }
+        else{
+            Order currOrder = dataSingleton.getOrder();
+            if(currOrder == null){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Order Already Placed Message");
+                alert.setHeaderText("Order has already been placed!");
+                alert.setContentText("Fun is on the way...");
+                alert.showAndWait();
+                return;
+            }
+            ArrayList <Pizza> orderPizzaList = currOrder.getPizzaList();
+            int indexToRemove = orderContentsListView.getSelectionModel().getSelectedIndex();
+            orderPizzaList.remove(indexToRemove);
+            currOrder.setPizzasList(orderPizzaList);
+            dataSingleton.setOrder(currOrder);
+            ObservableList<Pizza> orderPizzaObservableList = FXCollections.observableList(currOrder.getPizzaList());
+            orderContentsListView.setItems(orderPizzaObservableList);
+            subtotalTextField.setText(String.valueOf(currOrder.getTotalPriceWithoutTax()));
+            salesTaxTextField.setText(String.valueOf(currOrder.getSalesTaxOfTotal()));
+            orderTotalTextField.setText(String.valueOf(currOrder.getTotalPriceWithSalesTax()));
+        }
     }
 }

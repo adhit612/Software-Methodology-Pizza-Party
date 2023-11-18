@@ -77,6 +77,11 @@ public class StoreOrdersController {
     }
 
     public void orderNumbersComboBoxAction(ActionEvent actionEvent) {
+        Object selectedOrder = orderNumbersComboBox.getSelectionModel().getSelectedItem();
+        if(selectedOrder == null){
+            orderTotalTextField.clear();
+            return;
+        }
         int selectedOrderNumber = (int)orderNumbersComboBox.getSelectionModel().getSelectedItem();
         StoreOrders storeOrders = dataSingleton.getStoreOrders();
         ArrayList <Order> orders = storeOrders.getOrders();
@@ -84,7 +89,43 @@ public class StoreOrdersController {
             if(orders.get(i).getOrderNumber() == selectedOrderNumber){
                 ObservableList<Pizza> orderPizzaObservableList = FXCollections.observableList(orders.get(i).getPizzaList());
                 orderInformationListView.setItems(orderPizzaObservableList);
+                orderTotalTextField.setText(String.valueOf(orders.get(i).getTotalPriceWithSalesTax()));
             }
+        }
+    }
+
+    public void cancelOrderButtonAction(ActionEvent actionEvent) {
+        Object selectedOrder = orderNumbersComboBox.getSelectionModel().getSelectedItem();
+        if(selectedOrder == null){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Select Order Number Message");
+            alert.setHeaderText("Please select an order number to remove");
+            alert.setContentText("To remove you must select...");
+            alert.showAndWait();
+        }
+        else{
+            int selectedOrderNumber = (int)orderNumbersComboBox.getSelectionModel().getSelectedItem();
+            StoreOrders storeOrders = dataSingleton.getStoreOrders();
+            ArrayList <Order> orders = storeOrders.getOrders();
+            int indexToRemove = -1;
+            for(int i = 0; i < orders.size(); i ++) {
+                if (orders.get(i).getOrderNumber() == selectedOrderNumber) {
+                    indexToRemove = i;
+                    break;
+                }
+            }
+            orders.remove(indexToRemove);
+            storeOrders.setOrders(orders);
+            dataSingleton.setStoreOrders(storeOrders);
+            orderInformationListView.getItems().clear();
+            ObservableList <Integer> orderNumbers = orderNumbersComboBox.getItems();
+            for(int i = 0; i < orderNumbers.size(); i ++){
+                if(orderNumbers.get(i) == selectedOrderNumber){
+                    indexToRemove = i;
+                }
+            }
+            orderNumbers.remove(indexToRemove);
+            orderNumbersComboBox.setItems(orderNumbers);
         }
     }
 }

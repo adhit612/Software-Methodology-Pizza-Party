@@ -27,5 +27,6 @@
       <TextField fx:id="pizzaPriceTextField" layoutX="63.0" layoutY="360.0" />
       <Label layoutX="14.0" layoutY="364.0" text="Price($)" />
       <TextField fx:id="setSauceTextField" layoutX="20.0" layoutY="176.0" />
+      <Label layoutX="433.0" layoutY="158.0" text="Toppings" />
    </children>
 </AnchorPane>

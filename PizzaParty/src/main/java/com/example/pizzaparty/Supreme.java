@@ -1,9 +1,12 @@
 package com.example.pizzaparty;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Supreme extends Pizza {
+
+    private static final DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
     public Supreme() {
         this.toppings = new ArrayList<>(Arrays.asList(Topping.SAUSAGE,Topping.PEPPERONI,Topping.HAM,Topping.GREENPEPPER,Topping.ONION,Topping.BLACKOLIVE,Topping.MUSHROOM));
@@ -25,7 +28,7 @@ public class Supreme extends Pizza {
 
     @Override
     public double price(){
-        return getSizePrice() + extraCheeseAmount() + extraSauceAmount();
+        return Double.parseDouble(decimalFormat.format(getSizePrice() + extraCheeseAmount() + extraSauceAmount()));
     }
 
     @Override

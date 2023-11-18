@@ -98,4 +98,13 @@ public abstract class Pizza {
     public String getSauceAsString(){
         return this.sauce.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Pizza) {
+            Pizza pizza = (Pizza) obj;
+            return this.getToppings().equals(pizza.getToppings()) && this.price() == pizza.price();
+        }
+        return false;
+    }
 }

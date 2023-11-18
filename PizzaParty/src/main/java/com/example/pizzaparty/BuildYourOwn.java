@@ -1,11 +1,15 @@
 package com.example.pizzaparty;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class BuildYourOwn extends Pizza {
 
+    private static final DecimalFormat decimalFormat = new DecimalFormat("0.00");
+
     public BuildYourOwn(){
+        this.toppingsIncrement = 0.0;
         this.extraSauce = false;
         this.extraCheese = false;
     }
@@ -25,7 +29,7 @@ public class BuildYourOwn extends Pizza {
 
     @Override
     public double price(){
-        return getSizePrice() + extraCheeseAmount() + extraSauceAmount();
+        return Double.parseDouble(decimalFormat.format(getSizePrice() + extraCheeseAmount() + extraSauceAmount() + getToppingsIncrement()));
     }
 
     @Override
@@ -55,8 +59,8 @@ public class BuildYourOwn extends Pizza {
     @Override
     public String toString(){
         if(this.extraCheese == false || this.extraSauce == false){
-            return "[Deluxe]" + "[" + getSizeAsString() + "]" + "[" + getSauceAsString() + "]: " + getToppingsAsString() + extraCheeseString().replace(",","") + extraSauceString().replace(",","") + ": " + "$" + price();
+            return "[Build Your Own]" + "[" + getSizeAsString() + "]" + "[" + getSauceAsString() + "]: " + getToppingsAsString() + extraCheeseString().replace(",","") + extraSauceString().replace(",","") + ": " + "$" + price();
         }
-        return "[Deluxe]" + "[" + getSizeAsString() + "]" + "[" + getSauceAsString() + "]: " + getToppingsAsString() + extraCheeseString() + extraSauceString() + ": " + "$" + price();
+        return "[Build Your Own]" + "[" + getSizeAsString() + "]" + "[" + getSauceAsString() + "]: " + getToppingsAsString() + extraCheeseString() + extraSauceString() + ": " + "$" + price();
     }
 }

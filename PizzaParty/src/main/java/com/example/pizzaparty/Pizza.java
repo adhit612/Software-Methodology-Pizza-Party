@@ -8,6 +8,7 @@ public abstract class Pizza {
     protected ArrayList <Topping> toppings;
     protected Size size;
     protected Sauce sauce;
+    protected double toppingsIncrement;
     protected boolean extraSauce;
     protected boolean extraCheese;
 
@@ -57,6 +58,18 @@ public abstract class Pizza {
         else{
             return "";
         }
+    }
+
+    public void incrementToppingsAmount(){
+        this.toppingsIncrement += 1.49;
+    }
+
+    public void decrementToppingsAmount(){
+        this.toppingsIncrement -= 1.49;
+    }
+
+    public double getToppingsIncrement(){
+        return this.toppingsIncrement;
     }
 
     public void setSize(Size size) {

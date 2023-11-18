@@ -81,32 +81,28 @@ public class SpecialtiesController {
         String selectedPizzaName = specialtyPizzasComboBox.getSelectionModel().getSelectedItem();
         PizzaMaker pizzaMaker = new PizzaMaker();
         Pizza selectedPizza = pizzaMaker.createPizza(selectedPizzaName);
+        pizzaToBeAdded = pizzaMaker.createPizza(selectedPizzaName);
         ObservableList <Topping> toppingsObservableList = FXCollections.observableList(selectedPizza.getToppings());
         toppingsListView.setItems(toppingsObservableList);
         setPizzaImageViewHelper(selectedPizzaName);
         RadioButton selectedSizeButton = (RadioButton) SizesGroup.getSelectedToggle();
         if(selectedPizzaName.equals("Deluxe")){
-            pizzaToBeAdded = new Deluxe();
             setSauceTextField.setText(pizzaToBeAdded.getSauceAsString());
             setPizzaGivenSizeUpperLayerHelper(selectedSizeButton);
         }
         else if(selectedPizzaName.equals("Supreme")){
-            pizzaToBeAdded = new Supreme();
             setSauceTextField.setText(pizzaToBeAdded.getSauceAsString());
             setPizzaGivenSizeUpperLayerHelper(selectedSizeButton);
         }
         else if(selectedPizzaName.equals("Meatzza")){
-            pizzaToBeAdded = new Meatzza();
             setSauceTextField.setText(pizzaToBeAdded.getSauceAsString());
             setPizzaGivenSizeUpperLayerHelper(selectedSizeButton);
         }
         else if(selectedPizzaName.equals("Seafood")){
-            pizzaToBeAdded = new Seafood();
             setSauceTextField.setText(pizzaToBeAdded.getSauceAsString());
             setPizzaGivenSizeUpperLayerHelper(selectedSizeButton);
         }
         else if(selectedPizzaName.equals("Pepperoni")){
-            pizzaToBeAdded = new Pepperoni();
             setSauceTextField.setText(pizzaToBeAdded.getSauceAsString());
             setPizzaGivenSizeUpperLayerHelper(selectedSizeButton);
         }

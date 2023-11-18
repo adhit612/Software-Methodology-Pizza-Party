@@ -58,6 +58,7 @@ public class MainMenuController {
         }
     }
 
+    @FXML
     public void buildYourOwnButtonAction(ActionEvent actionEvent) {
         Stage mainStage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         AnchorPane root;
@@ -79,6 +80,7 @@ public class MainMenuController {
         }
     }
 
+    @FXML
     public void currentOrderButtonAction(ActionEvent actionEvent) {
         Stage mainStage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         AnchorPane root;
@@ -100,6 +102,7 @@ public class MainMenuController {
         }
     }
 
+    @FXML
     public void storeOrdersButtonAction(ActionEvent actionEvent) {
         Stage mainStage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         AnchorPane root;

@@ -20,7 +20,18 @@ public class StoreOrders {
     }
 
     public void remove(Order order){
-        this.orders.remove(order);
+        int indexToRemove = 0;
+        for(int i = 0; i < this.orders.size(); i ++){
+            if(this.orders.get(i).getOrderNumber() == order.getOrderNumber()){
+                indexToRemove = i;
+            }
+        }
+        this.orders.remove(indexToRemove);
+        decrementOrderNumber();
+    }
+
+    public void decrementOrderNumber(){
+        this.currOrderNumber --;
     }
 
     public int getNextOrderNumber(){
@@ -39,6 +50,10 @@ public class StoreOrders {
 
     public void incrementOrderNumber(){
         this.currOrderNumber ++;
+    }
+
+    public void resetOrderNumber(){
+        this.currOrderNumber = 1;
     }
 
     public ArrayList <Order> getOrders(){

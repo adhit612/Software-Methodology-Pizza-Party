@@ -77,6 +77,7 @@ public class SpecialtiesController {
         }
     }
 
+    @FXML
     public void specialtiesComboBoxAction(ActionEvent actionEvent) {
         String selectedPizzaName = specialtyPizzasComboBox.getSelectionModel().getSelectedItem();
         PizzaMaker pizzaMaker = new PizzaMaker();
@@ -215,10 +216,12 @@ public class SpecialtiesController {
             }
         }
     }
+
     public void setMainController (MainMenuController controller){
         mainMenuController = controller;
     }
 
+    @FXML
     public void smallButtonAction(ActionEvent actionEvent) {
         if(pizzaToBeAdded != null){
             pizzaToBeAdded.setSize(Size.SMALL);
@@ -226,6 +229,7 @@ public class SpecialtiesController {
         }
     }
 
+    @FXML
     public void mediumButtonAction(ActionEvent actionEvent) {
         if(pizzaToBeAdded != null){
             pizzaToBeAdded.setSize(Size.MEDIUM);
@@ -233,6 +237,7 @@ public class SpecialtiesController {
         }
     }
 
+    @FXML
     public void largeButtonAction(ActionEvent actionEvent) {
         if(pizzaToBeAdded != null){
             pizzaToBeAdded.setSize(Size.LARGE);
@@ -240,6 +245,7 @@ public class SpecialtiesController {
         }
     }
 
+    @FXML
     public void extraCheeseBoxAction(ActionEvent actionEvent) {
         RadioButton selectedSizeButton = (RadioButton) SizesGroup.getSelectedToggle();
         if(pizzaToBeAdded != null && selectedSizeButton != null) {
@@ -254,6 +260,7 @@ public class SpecialtiesController {
         }
     }
 
+    @FXML
     public void extraSauceBoxAction(ActionEvent actionEvent) {
         RadioButton selectedSizeButton = (RadioButton) SizesGroup.getSelectedToggle();
         if(pizzaToBeAdded != null && selectedSizeButton != null) {
@@ -268,6 +275,7 @@ public class SpecialtiesController {
         }
     }
 
+    @FXML
     public void addToOrderButtonAction(ActionEvent actionEvent) {
         RadioButton selectedSizeButton = (RadioButton) SizesGroup.getSelectedToggle();
 

@@ -20,8 +20,6 @@ import java.util.ArrayList;
 public class CurrentOrderController {
     private MainMenuController mainMenuController;
 
-    private boolean orderPlacedBoolean;
-
     @FXML
     private TextField orderNumberTextField;
 
@@ -62,6 +60,7 @@ public class CurrentOrderController {
             }
             else{
                 storeOrders.add(currOrder);
+                dataSingleton.setOrderAdded(true);
                 dataSingleton.setStoreOrders(storeOrders);
                 orderNumberTextField.setText(String.valueOf(currOrder.getOrderNumber()));
                 ObservableList<Pizza> orderPizzaObservableList = FXCollections.observableList(currOrder.getPizzaList());
@@ -74,9 +73,12 @@ public class CurrentOrderController {
     }
 
     public void backToMainAction(ActionEvent actionEvent) {
-        if(!orderPlacedBoolean){
-            dataSingleton.setStoreOrders(null);
+        Order currOrder = dataSingleton.getOrder();
+        if(currOrder != null){
+            StoreOrders storeOrders = dataSingleton.getStoreOrders();
+            storeOrders.remove(currOrder);
         }
+
         Stage mainStage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         AnchorPane root;
         try {
@@ -99,6 +101,7 @@ public class CurrentOrderController {
         mainMenuController = controller;
     }
 
+    @FXML
     public void placeOrderButtonAction(ActionEvent actionEvent) {
         Order currOrder = dataSingleton.getOrder();
 
@@ -121,18 +124,17 @@ public class CurrentOrderController {
             alert.showAndWait();
             return;
         }
-        orderPlacedBoolean = true;
         currOrder = null;
         dataSingleton.setOrder(currOrder);
+        dataSingleton.setOrderAdded(false);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Order Placed Message");
         alert.setHeaderText("Order has been placed!");
         alert.setContentText("Enjoy the food...");
         alert.showAndWait();
-//        orderContentsListView.getItems().clear();
-//        orderNumberTextField.clear();
     }
 
+    @FXML
     public void removeSelectedPizzaAction(ActionEvent actionEvent) {
         Pizza selectedPizza = (Pizza)orderContentsListView.getSelectionModel().getSelectedItem();
         if(selectedPizza == null){

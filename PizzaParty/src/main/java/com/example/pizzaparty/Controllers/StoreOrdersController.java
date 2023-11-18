@@ -76,6 +76,7 @@ public class StoreOrdersController {
         mainMenuController = controller;
     }
 
+    @FXML
     public void orderNumbersComboBoxAction(ActionEvent actionEvent) {
         Object selectedOrder = orderNumbersComboBox.getSelectionModel().getSelectedItem();
         if(selectedOrder == null){
@@ -94,6 +95,7 @@ public class StoreOrdersController {
         }
     }
 
+    @FXML
     public void cancelOrderButtonAction(ActionEvent actionEvent) {
         Object selectedOrder = orderNumbersComboBox.getSelectionModel().getSelectedItem();
         if(selectedOrder == null){

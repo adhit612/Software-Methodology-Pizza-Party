@@ -82,6 +82,7 @@ public class BuildOwnController {
         mainMenuController = controller;
     }
 
+    @FXML
     public void addToppingButtonAction(ActionEvent actionEvent) {
         RadioButton selectedSizeButton = (RadioButton) SizesGroup.getSelectedToggle();
         RadioButton selectedSauceButton = (RadioButton) SaucesGroup.getSelectedToggle();
@@ -109,42 +110,47 @@ public class BuildOwnController {
                 alert.showAndWait();
             }
             else{
-                ObservableList <Topping> toppingsList = selectedToppingsListView.getItems();
-                if(toppingsList == null){
-                    ArrayList <Topping> newToppingList = new ArrayList<>();
-                    newToppingList.add(selectedTopping);
-                    ObservableList<Topping> toppingArrayListToBeSet = FXCollections.observableList(newToppingList);
-                    selectedToppingsListView.setItems(toppingArrayListToBeSet);
+                addButtonHelper(selectedTopping);
+            }
+        }
+    }
+
+    public void addButtonHelper(Topping selectedTopping){
+        ObservableList <Topping> toppingsList = selectedToppingsListView.getItems();
+        if(toppingsList == null){
+            ArrayList <Topping> newToppingList = new ArrayList<>();
+            newToppingList.add(selectedTopping);
+            ObservableList<Topping> toppingArrayListToBeSet = FXCollections.observableList(newToppingList);
+            selectedToppingsListView.setItems(toppingArrayListToBeSet);
+        }
+        else{
+            if(toppingsList.contains(selectedTopping)){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Topping Already Added");
+                alert.setHeaderText("Topping has already been added");
+                alert.setContentText("Pick something else...");
+                alert.showAndWait();
+            }
+            else{
+                if(toppingCount >= 7){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Topping Limit Reached");
+                    alert.setHeaderText("Topping Limit has been Reached!");
+                    alert.setContentText("Woah there...");
+                    alert.showAndWait();
                 }
-                else{
-                    if(toppingsList.contains(selectedTopping)){
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Topping Already Added");
-                        alert.setHeaderText("Topping has already been added");
-                        alert.setContentText("Pick something else...");
-                        alert.showAndWait();
-                    }
-                    else{
-                        if(toppingCount >= 7){
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setTitle("Topping Limit Reached");
-                            alert.setHeaderText("Topping Limit has been Reached!");
-                            alert.setContentText("Woah there...");
-                            alert.showAndWait();
-                        }
-                        else {
-                            toppingsList.add(selectedTopping);
-                            pizzaToBeAdded.incrementToppingsAmount();
-                            selectedToppingsListView.setItems(toppingsList);
-                            pizzaPriceTextField.setText(String.valueOf(pizzaToBeAdded.price()));
-                            toppingCount ++;
-                        }
-                    }
+                else {
+                    toppingsList.add(selectedTopping);
+                    pizzaToBeAdded.incrementToppingsAmount();
+                    selectedToppingsListView.setItems(toppingsList);
+                    pizzaPriceTextField.setText(String.valueOf(pizzaToBeAdded.price()));
+                    toppingCount ++;
                 }
             }
         }
     }
 
+    @FXML
     public void removeToppingButtonAction(ActionEvent actionEvent) {
         Topping selectedTopping = (Topping)selectedToppingsListView.getSelectionModel().getSelectedItem();
         if(selectedTopping == null){
@@ -164,29 +170,35 @@ public class BuildOwnController {
         }
     }
 
+    @FXML
     public void smallRadioButtonAction(ActionEvent actionEvent) {
         pizzaToBeAdded.setSize(Size.SMALL);
         pizzaPriceTextField.setText(String.valueOf(pizzaToBeAdded.price()));
     }
 
+    @FXML
     public void mediumRadioButtonAction(ActionEvent actionEvent) {
         pizzaToBeAdded.setSize(Size.MEDIUM);
         pizzaPriceTextField.setText(String.valueOf(pizzaToBeAdded.price()));
     }
 
+    @FXML
     public void largeRadioButtonAction(ActionEvent actionEvent) {
         pizzaToBeAdded.setSize(Size.LARGE);
         pizzaPriceTextField.setText(String.valueOf(pizzaToBeAdded.price()));
     }
 
+    @FXML
     public void tomatoSauceRadioButtonAction(ActionEvent actionEvent) {
         pizzaToBeAdded.setSauce(Sauce.TOMATO);
     }
 
+    @FXML
     public void alfredoSauceRadioButtonAction(ActionEvent actionEvent) {
         pizzaToBeAdded.setSauce(Sauce.ALFREDO);
     }
 
+    @FXML
     public void addToOrderButtonAction(ActionEvent actionEvent) {
         RadioButton selectedSizeButton = (RadioButton) SizesGroup.getSelectedToggle();
         RadioButton selectedSauceButton = (RadioButton) SaucesGroup.getSelectedToggle();
@@ -205,51 +217,60 @@ public class BuildOwnController {
             alert.showAndWait();
         }
         else{
-            ObservableList <Topping> selectedToppingsList = selectedToppingsListView.getItems();
-            if(selectedToppingsList == null || selectedToppingsList.size() < 3){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Select Toppings");
-                alert.setHeaderText("Please Select Toppings");
-                alert.setContentText("At least 3 toppings needed...");
-                alert.showAndWait();
-            }
-            else{
-                if(pizzaToBeAdded != null){
-                    Order order = dataSingleton.getOrder();
-                    if(order == null){
-                        ArrayList <Pizza> pizzaList = new ArrayList<>();
-                        ArrayList <Topping> toppingsToBeSet = new ArrayList<>();
-                        if (selectedToppingsList instanceof ArrayList<?>) {
-                            toppingsToBeSet = (ArrayList<Topping>) selectedToppingsList;
-                        } else {
-                            toppingsToBeSet = new ArrayList<>(selectedToppingsList);
-                        }
-                        pizzaToBeAdded.setToppings(toppingsToBeSet);
-                        pizzaList.add(pizzaToBeAdded);
-                        Order newOrder = new Order(pizzaList);
-                        dataSingleton.setOrder(newOrder);
+            addToOrderButtonHelper();
+        }
+    }
+
+    public void addToOrderButtonHelper(){
+        ObservableList <Topping> selectedToppingsList = selectedToppingsListView.getItems();
+        if(selectedToppingsList == null || selectedToppingsList.size() < 3){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Select Toppings");
+            alert.setHeaderText("Please Select Toppings");
+            alert.setContentText("At least 3 toppings needed...");
+            alert.showAndWait();
+        }
+        else{
+            if(pizzaToBeAdded != null){
+                Order order = dataSingleton.getOrder();
+                if(order == null){
+                    ArrayList <Pizza> pizzaList = new ArrayList<>();
+                    ArrayList <Topping> toppingsToBeSet = new ArrayList<>();
+                    if (selectedToppingsList instanceof ArrayList<?>) {
+                        toppingsToBeSet = (ArrayList<Topping>) selectedToppingsList;
+                    } else {
+                        toppingsToBeSet = new ArrayList<>(selectedToppingsList);
                     }
-                    else{
-                        ArrayList <Topping> toppingsToBeSet = new ArrayList<>();
-                        if (selectedToppingsList instanceof ArrayList<?>) {
-                            toppingsToBeSet = (ArrayList<Topping>) selectedToppingsList;
-                        } else {
-                            toppingsToBeSet = new ArrayList<>(selectedToppingsList);
-                        }
-                        pizzaToBeAdded.setToppings(toppingsToBeSet);
-                        order.add(pizzaToBeAdded);
-                        dataSingleton.setOrder(order);
-                    }
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Pizza Added Message");
-                    alert.setHeaderText("Pizza has been added!");
-                    alert.setContentText("It will be worth it...");
-                    alert.showAndWait();
+                    pizzaToBeAdded.setToppings(toppingsToBeSet);
+                    pizzaList.add(pizzaToBeAdded);
+                    Order newOrder = new Order(pizzaList);
+                    dataSingleton.setOrder(newOrder);
                 }
+                else{
+                    ArrayList <Topping> toppingsToBeSet = new ArrayList<>();
+                    if (selectedToppingsList instanceof ArrayList<?>) {
+                        toppingsToBeSet = (ArrayList<Topping>) selectedToppingsList;
+                    } else {
+                        toppingsToBeSet = new ArrayList<>(selectedToppingsList);
+                    }
+                    pizzaToBeAdded.setToppings(toppingsToBeSet);
+                    order.add(pizzaToBeAdded);
+                    dataSingleton.setOrder(order);
+                }
+                createAddedAlert();
             }
         }
     }
 
+    public void createAddedAlert(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Pizza Added Message");
+        alert.setHeaderText("Pizza has been added!");
+        alert.setContentText("It will be worth it...");
+        alert.showAndWait();
+    }
+
+    @FXML
     public void extraSauceCheckBoxAction(ActionEvent actionEvent) {
         RadioButton selectedSizeButton = (RadioButton) SizesGroup.getSelectedToggle();
         RadioButton selectedSauceButton = (RadioButton) SaucesGroup.getSelectedToggle();
@@ -279,6 +300,7 @@ public class BuildOwnController {
         }
     }
 
+    @FXML
     public void extraCheeseCheckBoxAction(ActionEvent actionEvent) {
         RadioButton selectedSizeButton = (RadioButton) SizesGroup.getSelectedToggle();
         RadioButton selectedSauceButton = (RadioButton) SaucesGroup.getSelectedToggle();

@@ -12,6 +12,8 @@ public class DataSingleton {
     private Order order;
     private StoreOrders storeOrders;
 
+    private boolean orderAdded = false;
+
     public static DataSingleton getInstance(){
         return instance;
     }
@@ -22,6 +24,14 @@ public class DataSingleton {
 
     public Order getOrder() {
         return order;
+    }
+
+    public boolean getOrderAdded(){
+        return orderAdded;
+    }
+
+    public void setOrderAdded(boolean bool){
+        orderAdded = bool;
     }
 
     public void setOrder(Order newOrder){

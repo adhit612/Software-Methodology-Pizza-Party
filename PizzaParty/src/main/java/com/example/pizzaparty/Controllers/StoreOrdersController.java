@@ -130,4 +130,33 @@ public class StoreOrdersController {
             orderNumbersComboBox.setItems(orderNumbers);
         }
     }
+
+    public void exportStoreOrdersAction(ActionEvent actionEvent) {
+        StoreOrders storeOrders = dataSingleton.getStoreOrders();
+        if(storeOrders == null){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Create Order Message");
+            alert.setHeaderText("Please create an order to export");
+            alert.setContentText("To print you must create...");
+            alert.showAndWait();
+        }
+        else{
+            ArrayList <Order> ordersList = storeOrders.getOrders();
+            if(ordersList == null || ordersList.size() < 1){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Create Order Message");
+                alert.setHeaderText("Please create an order to export");
+                alert.setContentText("To print you must create...");
+                alert.showAndWait();
+            }
+            else {
+                storeOrders.export();
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Order Exported Message");
+                alert.setHeaderText("Order Has Been Exported");
+                alert.setContentText("Do with it what you want...");
+                alert.showAndWait();
+            }
+        }
+    }
 }

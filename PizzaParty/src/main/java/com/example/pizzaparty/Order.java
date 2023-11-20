@@ -39,6 +39,8 @@ public class Order {
                 res += this.pizzas.get(i).toString() + "\n";
             }
         }
+        res += "\n";
+        res += "Order total: $" + String.valueOf(getTotalPriceWithSalesTax()) + "\n";
         return res;
     }
 

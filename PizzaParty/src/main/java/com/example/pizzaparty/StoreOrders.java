@@ -1,4 +1,10 @@
 package com.example.pizzaparty;
+import javafx.stage.FileChooser;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 
 public class StoreOrders {
@@ -45,7 +51,17 @@ public class StoreOrders {
     }
 
     public void export(){
-
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save File");
+        File file = fileChooser.showSaveDialog(null);
+        if (file != null) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
+                writer.println(this);
+            }
+            catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     public void incrementOrderNumber(){

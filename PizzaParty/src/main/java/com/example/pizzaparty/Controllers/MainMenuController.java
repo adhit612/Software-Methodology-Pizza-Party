@@ -18,6 +18,11 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * Controller class that manages actions for the main menu.
+ *
+ * @author Abhishek Thakare, Adhit Thakur.
+ */
 public class MainMenuController {
     static ArrayList<Pizza> currentPizzaList;
 
@@ -25,31 +30,55 @@ public class MainMenuController {
 
     static StoreOrders storeOrders = new StoreOrders();
 
-    public void initialize(){
+    /**
+     * Method that initializes the layout for the main menu.
+     */
+    public void initialize() {
     }
 
-    public static Order getCurrentOrder(){
+    /**
+     * Method that gets the current order.
+     *
+     * @return currentOrder.
+     */
+    public static Order getCurrentOrder() {
         return currentOrder;
     }
 
-    public static void setCurrentOrder(Order newOrder){
+    /**
+     * Method that sets the order to current order.
+     *
+     * @param newOrder the latest order.
+     */
+    public static void setCurrentOrder(Order newOrder) {
         currentOrder = newOrder;
     }
 
+    /**
+     * Method that covers actions for speciality button.
+     *
+     * @param actionEvent button action event.
+     */
     @FXML
     public void specialtyButtonAction(ActionEvent actionEvent) {
-        Stage mainStage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+        Stage mainStage =
+                (Stage) ((Node) actionEvent.getSource()).
+                        getScene().getWindow();
         AnchorPane root;
         try {
-            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("specialties.fxml"));
+            FXMLLoader loader =
+                    new FXMLLoader(MainApplication.class.getResource(
+                            "specialties.fxml"));
             root = (AnchorPane) loader.load();
             Scene scene = new Scene(root, 600, 400);
             mainStage.setScene(scene);
             mainStage.setTitle("Specialties");
             mainStage.show();
-            SpecialtiesController specialtiesController = loader.getController();
+            SpecialtiesController specialtiesController =
+                    loader.getController();
             specialtiesController.setMainController(this);
-        }catch (IOException e){
+        }
+        catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
             alert.setHeaderText("Loading View1.fxml.");
@@ -58,12 +87,21 @@ public class MainMenuController {
         }
     }
 
+    /**
+     * Method that covers actions for building your own pizza.
+     *
+     * @param actionEvent button action event.
+     */
     @FXML
     public void buildYourOwnButtonAction(ActionEvent actionEvent) {
-        Stage mainStage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+        Stage mainStage =
+                (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         AnchorPane root;
         try {
-            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("build-own.fxml"));
+            FXMLLoader loader =
+                    new FXMLLoader(MainApplication.class.
+                            getResource("build" +
+                            "-own.fxml"));
             root = (AnchorPane) loader.load();
             Scene scene = new Scene(root, 600, 400);
             mainStage.setScene(scene);
@@ -71,7 +109,8 @@ public class MainMenuController {
             mainStage.show();
             BuildOwnController byoController = loader.getController();
             byoController.setMainController(this);
-        }catch (IOException e){
+        }
+        catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
             alert.setHeaderText("Loading View1.fxml.");
@@ -80,20 +119,31 @@ public class MainMenuController {
         }
     }
 
+    /**
+     * Method that covers actions for current order.
+     *
+     * @param actionEvent button action event.
+     */
     @FXML
     public void currentOrderButtonAction(ActionEvent actionEvent) {
-        Stage mainStage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+        Stage mainStage =
+                (Stage) ((Node) actionEvent.getSource()).
+                        getScene().getWindow();
         AnchorPane root;
         try {
-            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("current-order.fxml"));
+            FXMLLoader loader =
+                    new FXMLLoader(MainApplication.class.getResource(
+                            "current-order.fxml"));
             root = (AnchorPane) loader.load();
             Scene scene = new Scene(root, 600, 400);
             mainStage.setScene(scene);
             mainStage.setTitle("Current Order");
             mainStage.show();
-            CurrentOrderController currentOrderController = loader.getController();
+            CurrentOrderController currentOrderController =
+                    loader.getController();
             currentOrderController.setMainController(this);
-        }catch (IOException e){
+        }
+        catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
             alert.setHeaderText("Loading View1.fxml.");
@@ -102,20 +152,32 @@ public class MainMenuController {
         }
     }
 
+    /**
+     * Method that covers actions for store orders.
+     *
+     * @param actionEvent button action event.
+     */
     @FXML
     public void storeOrdersButtonAction(ActionEvent actionEvent) {
-        Stage mainStage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+        Stage mainStage =
+                (Stage) ((Node) actionEvent.getSource()).
+                        getScene().getWindow();
         AnchorPane root;
         try {
-            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("store-orders.fxml"));
+            FXMLLoader loader =
+                    new FXMLLoader(MainApplication.class.
+                            getResource("store" +
+                            "-orders.fxml"));
             root = (AnchorPane) loader.load();
             Scene scene = new Scene(root, 600, 400);
             mainStage.setScene(scene);
             mainStage.setTitle("Store Orders");
             mainStage.show();
-            StoreOrdersController storeOrdersController = loader.getController();
+            StoreOrdersController storeOrdersController =
+                    loader.getController();
             storeOrdersController.setMainController(this);
-        }catch (IOException e){
+        }
+        catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
             alert.setHeaderText("Loading View1.fxml.");

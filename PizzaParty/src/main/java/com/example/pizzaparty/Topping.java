@@ -1,81 +1,138 @@
 package com.example.pizzaparty;
 
+/**
+ * Class that manages all toppings of pizza.
+ *
+ * @author Abhishek Thakare, Adhit Thakur.
+ */
 public enum Topping {
-    SAUSAGE{
+    SAUSAGE {
+        /**
+         * Method that returns String format of specific pizza topping.
+         * @return a topping for this pizza.
+         */
         @Override
-        public String toString(){
+        public String toString() {
             return "Sausage";
         }
     },
-    PEPPERONI{
+    PEPPERONI {
+        /**
+         * Method that returns String format of specific pizza topping.
+         * @return a topping for this pizza.
+         */
         @Override
-        public String toString(){
+        public String toString() {
             return "Pepperoni";
         }
     },
-    GREENPEPPER{
+    GREENPEPPER {
+        /**
+         * Method that returns String format of specific pizza topping.
+         * @return a topping for this pizza.
+         */
         @Override
-        public String toString(){
+        public String toString() {
             return "Green Pepper";
         }
     },
-    ONION{
+    ONION {
+        /**
+         * Method that returns String format of specific pizza topping.
+         * @return a topping for this pizza.
+         */
         @Override
-        public String toString(){
+        public String toString() {
             return "Onion";
         }
     },
-    MUSHROOM{
+    MUSHROOM {
+        /**
+         * Method that returns String format of specific pizza topping.
+         * @return a topping for this pizza.
+         */
         @Override
-        public String toString(){
+        public String toString() {
             return "Mushroom";
         }
     },
-    HAM{
+    HAM {
+        /**
+         * Method that returns String format of specific pizza topping.
+         * @return a topping for this pizza.
+         */
         @Override
-        public String toString(){
+        public String toString() {
             return "Ham";
         }
     },
-    BLACKOLIVE{
+    BLACKOLIVE {
+        /**
+         * Method that returns String format of specific pizza topping.
+         * @return a topping for this pizza.
+         */
         @Override
-        public String toString(){
+        public String toString() {
             return "Black Olive";
         }
     },
-    BEEF{
+    BEEF {
+        /**
+         * Method that returns String format of specific pizza topping.
+         * @return a topping for this pizza.
+         */
         @Override
-        public String toString(){
+        public String toString() {
             return "Beef";
         }
     },
-    SHRIMP{
+    SHRIMP {
+        /**
+         * Method that returns String format of specific pizza topping.
+         * @return a topping for this pizza.
+         */
         @Override
-        public String toString(){
+        public String toString() {
             return "Shrimp";
         }
     },
-    SQUID{
+    SQUID {
+        /**
+         * Method that returns String format of specific pizza topping.
+         * @return a topping for this pizza.
+         */
         @Override
-        public String toString(){
+        public String toString() {
             return "Squid";
         }
     },
-    CRABMEATS{
+    CRABMEATS {
+        /**
+         * Method that returns String format of specific pizza topping.
+         * @return a topping for this pizza.
+         */
         @Override
-        public String toString(){
+        public String toString() {
             return "Crab Meats";
         }
     },
-    HOTSAUCE{
+    HOTSAUCE {
+        /**
+         * Method that returns String format of specific pizza topping.
+         * @return a topping for this pizza.
+         */
         @Override
-        public String toString(){
+        public String toString() {
             return "Hot Sauce";
         }
     },
-    CHICKEN{
+    CHICKEN {
+        /**
+         * Method that returns String format of specific pizza topping.
+         * @return a topping for this pizza.
+         */
         @Override
-        public String toString(){
+        public String toString() {
             return "Chicken";
         }
     },

@@ -6,6 +6,11 @@ import com.example.pizzaparty.StoreOrders;
 
 import java.util.ArrayList;
 
+/**
+ * Class that allows data to be accessed through multiple classes.
+ *
+ * @author Abhishek Thakare, Adhit Thakur.
+ */
 public class DataSingleton {
     private static final DataSingleton instance = new DataSingleton();
 
@@ -14,39 +19,82 @@ public class DataSingleton {
 
     private boolean orderAdded = false;
 
-    public static DataSingleton getInstance(){
+    /**
+     * Method that returns the instance of singleton.
+     */
+    public static DataSingleton getInstance() {
         return instance;
     }
 
-    public void initializeOrder(ArrayList<Pizza> pizzaList){
+    /**
+     * Method that initializes the order of pizzas.
+     *
+     * @param pizzaList holds all orders of pizzas.
+     */
+    public void initializeOrder(ArrayList<Pizza> pizzaList) {
         order = new Order(pizzaList);
     }
 
+    /**
+     * Method that handles getting the order number.
+     *
+     * @return order.
+     */
     public Order getOrder() {
         return order;
     }
 
-    public boolean getOrderAdded(){
+    /**
+     * Method that handles getting the just added order.
+     *
+     * @return bool value for if order is added.
+     */
+    public boolean getOrderAdded() {
         return orderAdded;
     }
 
-    public void setOrderAdded(boolean bool){
+    /**
+     * Method that handles checking whether the order was added successfully.
+     *
+     * @param bool true or false for if order is added.
+     */
+    public void setOrderAdded(boolean bool) {
         orderAdded = bool;
     }
 
-    public void setOrder(Order newOrder){
+    /**
+     * Method that handles setting the latest order.
+     *
+     * @param newOrder the latest order in the list.
+     */
+    public void setOrder(Order newOrder) {
         order = newOrder;
     }
 
-    public void initializeStoreOrders(ArrayList <Order> ordersList){
+    /**
+     * Method that handles creating the store orders from scratch.
+     *
+     * @param ordersList list of orders.
+     */
+    public void initializeStoreOrders(ArrayList<Order> ordersList) {
         storeOrders = new StoreOrders(ordersList);
     }
 
-    public StoreOrders getStoreOrders(){
+    /**
+     * Method that handles getting all store orders currently.
+     *
+     * @return storeOrder list
+     */
+    public StoreOrders getStoreOrders() {
         return storeOrders;
     }
 
-    public void setStoreOrders(StoreOrders newStoreOrder){
+    /**
+     * Method that handles setting the latest store order.
+     *
+     * @param newStoreOrder latest store order.
+     */
+    public void setStoreOrders(StoreOrders newStoreOrder) {
         storeOrders = newStoreOrder;
     }
 

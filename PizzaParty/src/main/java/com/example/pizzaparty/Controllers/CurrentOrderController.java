@@ -17,6 +17,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Controller class that manages actions for current orders.
+ *
+ * @author Abhishek Thakare, Adhit Thakur.
+ */
 public class CurrentOrderController {
     private MainMenuController mainMenuController;
 
@@ -35,9 +40,12 @@ public class CurrentOrderController {
     @FXML
     private ListView orderContentsListView;
 
-    DataSingleton dataSingleton = DataSingleton.getInstance();
+    private DataSingleton dataSingleton = DataSingleton.getInstance();
 
-    public void initialize(){
+    /**
+     * Method that initializes the layout for the current order screen.
+     */
+    public void initialize() {
         orderNumberTextField.setEditable(false);
         subtotalTextField.setEditable(false);
         salesTaxTextField.setEditable(false);
@@ -45,50 +53,81 @@ public class CurrentOrderController {
         StoreOrders storeOrders = dataSingleton.getStoreOrders();
         Order currOrder = dataSingleton.getOrder();
 
-        if(currOrder != null){
-            if(storeOrders == null){
-                ArrayList <Order> orderList = new ArrayList<>();
+        if (currOrder != null) {
+            if (storeOrders == null) {
+                ArrayList<Order> orderList = new ArrayList<>();
                 StoreOrders newStoreOrder = new StoreOrders(orderList);
                 newStoreOrder.add(currOrder);
                 dataSingleton.setStoreOrders(newStoreOrder);
-                orderNumberTextField.setText(String.valueOf(currOrder.getOrderNumber()));
-                ObservableList<Pizza> orderPizzaObservableList = FXCollections.observableList(currOrder.getPizzaList());
+                orderNumberTextField.setText(String.valueOf(currOrder.
+                        getOrderNumber()));
+                ObservableList<Pizza> orderPizzaObservableList =
+                        FXCollections.observableList(currOrder.
+                                getPizzaList());
                 orderContentsListView.setItems(orderPizzaObservableList);
-                subtotalTextField.setText(String.valueOf(currOrder.getTotalPriceWithoutTax()));
-                salesTaxTextField.setText(String.valueOf(currOrder.getSalesTaxOfTotal()));
-                orderTotalTextField.setText(String.valueOf(currOrder.getTotalPriceWithSalesTax()));
+                subtotalTextField.setText(String.valueOf(currOrder.
+                        getTotalPriceWithoutTax()));
+                salesTaxTextField.setText(String.valueOf(currOrder.
+                        getSalesTaxOfTotal()));
+                orderTotalTextField.setText(String.valueOf(currOrder.
+                        getTotalPriceWithSalesTax()));
             }
-            else{
-                storeOrders.add(currOrder);
-                dataSingleton.setOrderAdded(true);
-                dataSingleton.setStoreOrders(storeOrders);
-                orderNumberTextField.setText(String.valueOf(currOrder.getOrderNumber()));
-                ObservableList<Pizza> orderPizzaObservableList = FXCollections.observableList(currOrder.getPizzaList());
-                orderContentsListView.setItems(orderPizzaObservableList);
-                subtotalTextField.setText(String.valueOf(currOrder.getTotalPriceWithoutTax()));
-                salesTaxTextField.setText(String.valueOf(currOrder.getSalesTaxOfTotal()));
-                orderTotalTextField.setText(String.valueOf(currOrder.getTotalPriceWithSalesTax()));
+            else {
+                initalizeHelper();
             }
         }
     }
 
+    /**
+     * Helper method that initializes the layout for the current order screen.
+     */
+    private void initalizeHelper() {
+        StoreOrders storeOrders = dataSingleton.getStoreOrders();
+        Order currOrder = dataSingleton.getOrder();
+        storeOrders.add(currOrder);
+        dataSingleton.setOrderAdded(true);
+        dataSingleton.setStoreOrders(storeOrders);
+        orderNumberTextField.setText(String.valueOf(currOrder.
+                getOrderNumber()));
+        ObservableList<Pizza> orderPizzaObservableList =
+                FXCollections.observableList(currOrder.getPizzaList());
+        orderContentsListView.setItems(orderPizzaObservableList);
+        subtotalTextField.setText(String.valueOf(currOrder.
+                getTotalPriceWithoutTax()));
+        salesTaxTextField.setText(String.valueOf(currOrder.
+                getSalesTaxOfTotal()));
+        orderTotalTextField.setText(String.valueOf(currOrder.
+                getTotalPriceWithSalesTax()));
+    }
+
+    /**
+     * Method that handles going back to the main menu.
+     *
+     * @param actionEvent button click event.
+     */
     public void backToMainAction(ActionEvent actionEvent) {
         Order currOrder = dataSingleton.getOrder();
-        if(currOrder != null){
+        if (currOrder != null) {
             StoreOrders storeOrders = dataSingleton.getStoreOrders();
             storeOrders.remove(currOrder);
         }
 
-        Stage mainStage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+        Stage mainStage =
+                (Stage) ((Node) actionEvent.getSource()).
+                        getScene().getWindow();
         AnchorPane root;
         try {
-            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("main-menu.fxml"));
+            FXMLLoader loader =
+                    new FXMLLoader(MainApplication.class.
+                            getResource("main" +
+                                    "-menu.fxml"));
             root = (AnchorPane) loader.load();
             Scene scene = new Scene(root, 600, 400);
             mainStage.setScene(scene);
             mainStage.setTitle("Main Menu");
             mainStage.show();
-        }catch (IOException e){
+        }
+        catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
             alert.setHeaderText("Loading View1.fxml.");
@@ -97,15 +136,25 @@ public class CurrentOrderController {
         }
     }
 
-    public void setMainController (MainMenuController controller) {
+    /**
+     * Method that sets the controller back to main.
+     *
+     * @param controller controller of main menu.
+     */
+    public void setMainController(MainMenuController controller) {
         mainMenuController = controller;
     }
 
+    /**
+     * Method that handles placing an order button.
+     *
+     * @param actionEvent button click event.
+     */
     @FXML
     public void placeOrderButtonAction(ActionEvent actionEvent) {
         Order currOrder = dataSingleton.getOrder();
 
-        if(currOrder == null){
+        if (currOrder == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Order Already Placed Message");
             alert.setHeaderText("Order has already been placed!");
@@ -114,9 +163,9 @@ public class CurrentOrderController {
             return;
         }
 
-        ArrayList <Pizza> orderPizzaList = currOrder.getPizzaList();
+        ArrayList<Pizza> orderPizzaList = currOrder.getPizzaList();
 
-        if(orderPizzaList.size() == 0){
+        if (orderPizzaList.size() == 0) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Empty Order Message");
             alert.setHeaderText("Your order is empty!");
@@ -134,19 +183,27 @@ public class CurrentOrderController {
         alert.showAndWait();
     }
 
+    /**
+     * Method that handles removing the selected pizza.
+     *
+     * @param actionEvent button click event.
+     */
     @FXML
     public void removeSelectedPizzaAction(ActionEvent actionEvent) {
-        Pizza selectedPizza = (Pizza)orderContentsListView.getSelectionModel().getSelectedItem();
-        if(selectedPizza == null){
+        Pizza selectedPizza =
+                (Pizza) orderContentsListView.getSelectionModel().
+                        getSelectedItem();
+        if (selectedPizza == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Please Select Item Message");
             alert.setHeaderText("No Item Selected");
-            alert.setContentText("If you really wanna remove you gotta select...");
+            alert.setContentText("If you really wanna remove you gotta " +
+                    "select...");
             alert.showAndWait();
         }
-        else{
+        else {
             Order currOrder = dataSingleton.getOrder();
-            if(currOrder == null){
+            if (currOrder == null) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Order Already Placed Message");
                 alert.setHeaderText("Order has already been placed!");
@@ -154,16 +211,22 @@ public class CurrentOrderController {
                 alert.showAndWait();
                 return;
             }
-            ArrayList <Pizza> orderPizzaList = currOrder.getPizzaList();
-            int indexToRemove = orderContentsListView.getSelectionModel().getSelectedIndex();
+            ArrayList<Pizza> orderPizzaList = currOrder.getPizzaList();
+            int indexToRemove =
+                    orderContentsListView.getSelectionModel().
+                            getSelectedIndex();
             orderPizzaList.remove(indexToRemove);
             currOrder.setPizzasList(orderPizzaList);
             dataSingleton.setOrder(currOrder);
-            ObservableList<Pizza> orderPizzaObservableList = FXCollections.observableList(currOrder.getPizzaList());
+            ObservableList<Pizza> orderPizzaObservableList =
+                    FXCollections.observableList(currOrder.getPizzaList());
             orderContentsListView.setItems(orderPizzaObservableList);
-            subtotalTextField.setText(String.valueOf(currOrder.getTotalPriceWithoutTax()));
-            salesTaxTextField.setText(String.valueOf(currOrder.getSalesTaxOfTotal()));
-            orderTotalTextField.setText(String.valueOf(currOrder.getTotalPriceWithSalesTax()));
+            subtotalTextField.setText(String.valueOf(currOrder.
+                    getTotalPriceWithoutTax()));
+            salesTaxTextField.setText(String.valueOf(currOrder.
+                    getSalesTaxOfTotal()));
+            orderTotalTextField.setText(String.valueOf(currOrder.
+                    getTotalPriceWithSalesTax()));
         }
     }
 }

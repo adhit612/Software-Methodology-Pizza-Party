@@ -1,7 +1,16 @@
 package com.example.pizzaparty;
 
+/**
+ * Class that manages types of pizza.
+ *
+ * @author Abhishek Thakare, Adhit Thakur.
+ */
 public class PizzaMaker {
-    public static Pizza createPizza(String pizzaType){
+
+    /**
+     * Method that creating a pizza based on cases.
+     */
+    public static Pizza createPizza(String pizzaType) {
         return switch (pizzaType) {
             case "Deluxe" -> new Deluxe();
             case "Supreme" -> new Supreme();

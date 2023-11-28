@@ -1,15 +1,28 @@
 package com.example.pizzaparty;
 
+/**
+ * Class that manages Sauce types for pizza.
+ *
+ * @author Abhishek Thakare, Adhit Thakur.
+ */
 public enum Sauce {
-    TOMATO{
+    TOMATO {
+        /**
+         * Method that handles getting the sauce of the pizza.
+         * @return sauce of pizza.
+         */
         @Override
-        public String toString(){
+        public String toString() {
             return "Tomato";
         }
     },
-    ALFREDO{
+    ALFREDO {
+        /**
+         * Method that handles getting the sauce of the pizza.
+         * @return sauce of pizza.
+         */
         @Override
-        public String toString(){
+        public String toString() {
             return "Alfredo";
         }
     },
